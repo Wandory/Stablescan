@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+  <title>Stablecoin News</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="app" id="app">
+  <div class="content">
+    <!-- HOME -->
+    <main id="home" class="view active" role="tabpanel" aria-labelledby="tab-home">
+      <section class="top-block" id="topBlock">
+        <div class="top-head">
+          <h2 class="top-title" id="marketTitle">Market Overview</h2>
+          <button id="topToggle" class="top-toggle" title="Свернуть/развернуть" aria-expanded="true">
+            <svg class="chev" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div id="topContent" class="top-content">
+          <!-- Колонка графика; точки слева на одном уровне с графиком -->
+          <div class="chart-col">
+            <div class="chart-card">
+              <!-- точки серий: слева, внутри карточки -->
+              <div class="chart-dots">
+                <button class="dot dot-usdt active" data-series="USDT" aria-label="USDT" title="USDT"></button>
+                <button class="dot dot-usdc" data-series="USDC" title="USDC"></button>
+                <button class="dot dot-usde" data-series="USDE" title="USDE"></button>
+              </div>
+
+              <!-- сам график -->
+              <div class="chart-wrap">
+                <canvas id="capChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="categoriesSection" class="categories style-glass" aria-label="Категории новостей">
+        <button class="pill active" data-category="USDT">USDT</button>
+        <button class="pill" data-category="USDC">USDC</button>
+        <button class="pill" data-category="USDE">USDE</button>
+      </section>
+
+      <div class="divider"></div>
+      <section id="newsFeed" class="news-feed"></section>
+    </main>
+
+  <!-- FAVORITES -->
+<main id="favorites" class="view" role="tabpanel" aria-labelledby="tab-fav">
+  <section id="favBlock" class="top-block">
+    <div class="top-head">
+      <h2 class="top-title">Favorites</h2>
+    </div>
+
+    <!-- В .top-content оставляем только поисковую строку -->
+    <div class="top-content">
+      <div class="search-row">
+        <input id="favSearch" type="search" class="search-inp" placeholder="Search favorites…" />
+      </div>
+    </div>
+  </section>
+
+  <!-- А вот прокручиваемую ленту выносим наружу, как в Home -->
+  <section id="favFeed" class="news-feed"></section>
+</main>
+
+
+    <!-- SETTINGS -->
+    <main id="settings" class="view" role="tabpanel" aria-labelledby="tab-settings">
+      <!-- ВЕРХНИЙ БЛОК В СТИЛЕ Market Overview/Favorites -->
+      <section class="top-block" id="settingsBlock">
+        <div class="top-head">
+          <h2 class="top-title" id="settingsTitle">SETTINGS</h2>
+        </div>
+      </section>
+
+      <!-- Контент настроек -->
+      <div class="settings">
+        <label class="setting-row">
+          <span id="languageLabel">Language</span>
+          <span class="segmented">
+            <button class="seg active" data-lang="ru">РУС</button>
+            <button class="seg" data-lang="en">EN</button>
+            <button class="seg" data-lang="zh">中文</button>
+          </span>
+        </label>
+
+        <label class="setting-row">
+          <span id="darkModeLabel">Dark mode</span>
+          <span class="switch">
+            <input id="darkToggle" type="checkbox"/>
+            <span class="slider"></span>
+          </span>
+        </label>
+
+        <div class="setting-row">
+          <button class="btn" id="openSidePanel" data-text-key="sidePanel">Боковая панель</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Нижняя панель -->
+  <nav class="bottom-nav" role="tablist" aria-label="Основная навигация">
+    <button id="tab-home" class="bn-item active" role="tab"
+            data-tab="home" aria-controls="home" aria-selected="true" title="Home">
+      <svg class="bn-ic" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11l9-7 9 7"></path>
+        <path d="M5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10"></path>
+      </svg>
+    </button>
+
+    <button id="tab-fav" class="bn-item" role="tab"
+            data-tab="favorites" aria-controls="favorites" aria-selected="false" title="Favorites">
+      <svg class="bn-ic" aria-hidden="true" viewBox="0 0 24 24" fill="#fff">
+        <path d="M12 3.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.4l1.1-6.5L2.6 10.3l6.5-.9L12 3.5z"></path>
+      </svg>
+    </button>
+
+    <button id="tab-settings" class="bn-item" role="tab"
+            data-tab="settings" aria-controls="settings" aria-selected="false" title="Settings">
+      <!-- УСТОЙЧИВАЯ «шестерёнка»: только круги и линии (stroke), без проблемных строчных l -->
+      <svg class="bn-ic" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- центральная ось -->
+        <circle cx="12" cy="12" r="3"></circle>
+        <!-- внешний обод -->
+        <circle cx="12" cy="12" r="8"></circle>
+        <!-- «зубья» по осям -->
+        <path d="M12 2 L12 4"></path>
+        <path d="M12 20 L12 22"></path>
+        <path d="M2 12 L4 12"></path>
+        <path d="M20 12 L22 12"></path>
+        <!-- «зубья» по диагоналям -->
+        <path d="M4.93 4.93 L6.34 6.34"></path>
+        <path d="M17.66 17.66 L19.07 19.07"></path>
+        <path d="M4.93 19.07 L6.34 17.66"></path>
+        <path d="M17.66 6.34 L19.07 4.93"></path>
+      </svg>
+    </button>
+  </nav>
+</div>
+
+<script src="chart.umd.js"></script>
+<script type="module" src="app.js"></script>
+<script type="module" src="sidepanel-launcher.js"></script>
+</body>
+</html>

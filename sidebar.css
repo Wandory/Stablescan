@@ -1,0 +1,16 @@
+/* Заполняем сайдпанель целиком, без отступов */
+:root, html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Сам iframe — на всю панель */
+#spFrame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}

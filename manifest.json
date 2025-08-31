@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Stablescan",
+  "version": "1.0.2",
+  "description": "welcome to stablescan SC, sad bread",
+
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Stablecoin News",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+
+  "permissions": [
+    "storage",
+    "alarms",
+    "sidePanel",
+    "tabs"
+  ],
+
+  "side_panel": {
+    "default_path": "sidebar.html"
+  },
+
+  "host_permissions": [
+    "https://api.coingecko.com/*",
+    "https://www.coindesk.com/*",
+    "https://cointelegraph.com/*",
+    "https://cryptoslate.com/*",
+    "https://cryptonews.com/*",
+    "https://thedefiant.io/*",
+    "https://feeds.feedburner.com/*"
+  ],
+
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:;"
+  }
+}
